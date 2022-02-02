@@ -17,7 +17,18 @@ class FirstFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    // la necesitamos porque la anterior puede ser nula en diferentes hilos
+    // esto ocurre asi, porque estamos dentro de un fragment y es mutable (var)
+
+    // Propiedad no mutable val (es parecido a static)
+    // Método abreviado de definicion de propiedad:
+    // definimos la propiedad NO abreviadamente
+    private val binding: FragmentFirstBinding
+        // 'sobrescribimos' el get() para que devuelva _binding
+        // no hace falta poner 'fun'
+        get() {
+            return _binding!!
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
